@@ -1,0 +1,36 @@
+name: 'Deploy to AWS CloudFormation'
+on: 
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  # This workflow contains a single job called "deploy"
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        id: creds
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ASIA2YUNDFXWBTSG6DWJ
+          aws-secret-access-key: 8RvEVJVkQ6NdjPhIVsKntqaBKmCIMaaHOuTGBQ2M
+          aws-session-token: FwoGZXIvYXdzECUaDLRL1FPbBO2CvmgHuyLFAa5dX2vcQD0CBxfztvR1soYJbDNWiA/IgOSS0iB7dP3Y95UYrV3yHEUbFy/hxTXFVYV7uD3X5d2Tlr2LKrVg4PetHq6odcnZPv2R19jTw3z5NLvK18uzI8YDEjISXK0cZHQr6lDK9vamzjNTM0PlYOAyC3i3/coXHgCAVQrga3DktRsDuZu3xBlTeiVAPgd0/tX3YhmXOsr54pPvf/zymbtj3gvusMxDnw/yY9gAKR+CQ9odpzvWcjyzgdG3HI6r1Fne8Gp3KIPdv6AGMi33mM/wqCsJs+cDyBvFTg1PbPIfo9Fc6+/b2pAuL12pt3SSXIJTRdvFfKIE10s=
+          aws-region: 'us-east-1' 
+
+      # Deploy to AWS CloudFormation
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: test-stack
+          template: Final-CFT.yml
+          no-fail-on-empty-changeset: "1"
+          

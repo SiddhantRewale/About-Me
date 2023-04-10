@@ -1,0 +1,55 @@
+name: 'Updated- Deploy to AWS CloudFormation'
+on: 
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  # This workflow contains a single job called "deploy"
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        id: creds
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ASIA2YUNDFXWP3EIECPB
+          aws-secret-access-key: w0BfsJmpsTu1Su0HIkWSuGtUt3y7bj5Iqlru1jcl
+          aws-session-token: FwoGZXIvYXdzEIf//////////wEaDKyNQ8hA7f8SP5EAbCLFAWYn0gUkgODtkTt0u3hD4srCb7KyAE3E+xHWcaUIuJ7uE1KdzwwKyQuNcVSFcGNT49SYY3GfZiCn5vkX3Z4SGrbw2+6AofBVuvXwokWpgcak12CYbzHm7scN595JnYVsKW6MVmZinJy4onzzg3h6D39gPXMX1lOiuCcappQ6CC2ptTTG4XjKqcjgk1LHWcOQnlZkdi2QU0b/PX4jGopYCCilyGZcS9LXEjQKVIL83pgif2iAPh2b4bj3FKzzAGwGIX0dFjyKKJGe1aAGMi3pA715Knz3kGXjOim++EuI3xbzoBDTr5SCeNoej5OFVLa0i5Sd0zYzxbCXv9A=
+          aws-region: 'us-east-1' 
+          
+      # bucket cretion for python script
+      - name: Deploy to AWS CloudFormation for bucket creation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: test-stack-bucket
+          template: createbucket.yaml
+          no-fail-on-empty-changeset: "1"
+       
+
+      # Runs a  single commands using the runners shell
+      - name: upload py to s3
+        run: aws s3 cp updated-gluescript.py s3://tempairbnb/
+
+
+      # Deploy to AWS CloudFormation
+      - name: Deploy to AWS CloudFormation for resources creation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: test-stack-ALL
+          template: Final-CFT.yml
+          no-fail-on-empty-changeset: "1"
+          
+          
+      # Runs a  single commands using the runners shell
+      - name: dump data to s3
+        run: aws s3 cp s3://kbigdata/data/total_data.csv s3://airbnb-in-data/
+          

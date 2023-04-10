@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'                                                                                                     
+Resources:
+  Airbnbinbucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+      BucketName: 'tempairbnb'
+      PublicAccessBlockConfiguration:
+          BlockPublicAcls: TRUE
+          BlockPublicPolicy: TRUE
+          IgnorePublicAcls: TRUE
+          RestrictPublicBuckets: TRUE
+
+
+  
