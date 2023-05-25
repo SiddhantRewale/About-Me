@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<h1>Project</h1>
+{% comment %} <p> Hello World</p> {% endcomment %}
+{% comment %} <h1>Name: {{name}}</h1> {% endcomment %}
+
+{% comment %} {% if age == 24 %}
+<h3>Dennis equal to 24</h3>
+{% else%}
+<h3>He is not equal to 24</h3>
+{% endif %} {% endcomment %}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for project in projects %}
+        <tr>
+            <td>{{project.id}}</td>
+            <td>{{project.title}}</td>
+            <td>{{project.description}}</td>
+            <td> {%if project.toprated %} <strong> Top Rated </strong> {{project.toprated}} {% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock content %}
+

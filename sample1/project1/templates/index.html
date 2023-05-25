@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Text Util</title>
+    </head>
+    <body>
+        <h1>Welcome to the text analyzer. enter  your text below</h1>
+        <form action='/Analyze' method='get'>
+            <textarea name='text' style="height: 102px; width: 574px;"></textarea><br> 
+            <input type='checkbox' name='removepunc'> Remove Punctuation <br>
+            <button type='submit'> Analyze Text </button>
+        </form>
+        {% comment %} This is first template {% endcomment %}
+        {% comment %} {{ place }} {% endcomment %}
+        {% comment %} {{ name }} is from {{ place }} {% endcomment %}
+    </body>
+</html>
