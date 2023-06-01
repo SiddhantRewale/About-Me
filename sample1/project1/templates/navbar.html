@@ -1,4 +1,28 @@
-<h1>Logo</h1>
-<a href='http://127.0.0.1:8000/projects/'>Home</a>
-<a href='http://127.0.0.1:8000/project/4/'>Project</a>
-<hr>
+{% comment %} <h1>Logo</h1>
+<a href='/'>Home</a>
+<a href='{% url 'create-project' %}'>Add Project</a>
+<hr> {% endcomment %}
+
+
+{% load static %}
+<header class="header">
+    <div class="container container--narrow">
+      <a href="/" class="header__logo">
+        <img src="{% static 'images/TN.png' %}" style="width :100px ;" alt="DevSearch Logo" />
+      </a>
+      <nav class="header__nav">
+        <input type="checkbox" id="responsive-menu" />
+        <label for="responsive-menu" class="toggle-menu">
+          <span>Menu</span>
+          <div class="toggle-menu__lines"></div>
+        </label>
+        <ul class="header__menu">
+          <li class="header__menuItem"><a href="#">Developers</a></li>
+          <li class="header__menuItem"><a href="{% url 'projects' %}">Projects</a></li>
+          <li class="header__menuItem"><a href="#">Inbox</a></li>
+          <li class="header__menuItem"><a href="#">My Account</a></li>
+          <li class="header__menuItem"><a href="{% url 'create-project' %}" class="btn btn--sub">Add Project</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
